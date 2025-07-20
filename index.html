@@ -216,7 +216,20 @@
       </div>
       <!--/ Abstract. -->
 
-      <h2 class="title is-3 has-text-centered">Environment</h2>
+      
+      <!-- Abstract. -->
+
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Environment</h2>
       <div>
         <img src="./static/images/intro.jpg" class="interpolation-image" alt="Interpolate start reference image." />
       </div>
@@ -233,12 +246,11 @@
         avoiding collisions, (c) passing objects, (d) moving items together, (e) aligning actions, and (f) organizing
         objects in the goal region.
       </p>
-      <!-- Abstract. -->
-
-
+        </div>
+      </div>
     </div>
-
   </section>
+
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -254,6 +266,104 @@
             pipeline: The policy first generates candidate actions. The dynamics model then estimates the resulting
             future states, and finally, the best action is selected based on state evaluation.
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Dataset Visualization</h2>
+          <p style="text-align: left; margin-bottom: 2rem;">
+            Explore our human-human interaction dataset by selecting different tasks, maps, and episodes. The dataset contains collaborative episodes across five different map configurations, with each map presenting unique collaboration challenges.
+          </p>
+          
+          <div class="columns">
+            <!-- Left side: Controls -->
+            <div class="column is-4">
+              <div class="box">
+                <h4 class="title is-5 has-text-centered">Select Video</h4>
+                
+                <div class="field">
+                  <label class="label">Task</label>
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select id="task-select">
+                        <option value="task1" selected>Task 1</option>
+                        <option value="task2">Task 2</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="field">
+                  <label class="label">Map</label>
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select id="map-select">
+                        <option value="AdaptiveAssist">Adaptive Assist</option>
+                        <option value="CornerDecision" selected>Corner Decision</option>
+                        <option value="DistancePriority">Distance Priority</option>
+                        <option value="EfficientRoutes">Efficient Routes</option>
+                        <option value="FourCorners">Four Corners</option>
+                        <option value="HandOff">Hand Off</option>
+                        <option value="LeftRight">Left Right</option>
+                        <option value="PassOrSplit">Pass Or Split</option>
+                        <option value="PriorityPick">Priority Pick</option>
+                        <option value="SequentialRotations">Sequential Rotations</option>
+                        <option value="SingleRotation">Single Rotation</option>
+                        <option value="TopBottomPriority">Top Bottom Priority</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="field">
+                  <label class="label">Episode ID</label>
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select id="episode-select">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="field" style="margin-top: 2rem;">
+                  <div class="control">
+                    <button id="play-video-btn" class="button is-primary is-fullwidth">
+                      <span class="icon">
+                        <i class="fas fa-play"></i>
+                      </span>
+                      <span>Play Video</span>
+                    </button>
+                  </div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                  <p id="video-description" style="text-align: center; font-size: 0.9rem; color: #666;">
+                    Currently viewing: Task 1 - Corner Decision - Episode 0
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right side: Video -->
+            <div class="column is-8">
+              <div class="box">
+                <video id="dataset-video" controls muted loop playsinline width="89%" style="max-height: 600px;">
+                  <source src="./static/videos/by_map_h264/movingout_task1_CornerDecision_0.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
