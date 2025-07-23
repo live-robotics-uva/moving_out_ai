@@ -167,7 +167,7 @@
   </section>
 
   <!-- <div class="columns is-centered has-text-centered">
-    <div class="column is-four-fifths">
+    <div class="column is-full">
       <h2 class="title is-3">Video</h2>
       <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
         <source src="./static/videos/full_video.mp4" type="video/mp4">
@@ -179,10 +179,10 @@
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-full">
           <!-- Paper video. -->
           <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
+            <div class="column is-full">
               <h2 class="title is-3">Demonstration of Collaboration Modes</h2>
               <p style="text-align: left;">Investigating human-AI collaboration in physically grounded tasks with diverse constraints and interaction modes in MovingOut.</p>
               <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
@@ -229,7 +229,7 @@
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-full">
           <h2 class="title is-3 has-text-centered">Environment</h2>
       <div>
         <img src="./static/images/intro.jpg" class="interpolation-image" alt="Interpolate start reference image." />
@@ -256,8 +256,8 @@
   <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">Proposed Method in Moving Out</h2>
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">BASS: Behavior Augmentation, Simulation, and Selection</h2>
           <div>
             <img src="./static/images/model.jpg" class="interpolation-image" alt="Interpolate start reference image." />
           </div>
@@ -274,17 +274,97 @@
 
   <section class="section">
     <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">AI-AI Collaboration Videos</h2>
+          <p style="text-align: left; margin-bottom: 2rem;">
+            BASS (Behavior Augmentation, Simulation, and Selection) enhances the diversity of agents and their understanding of the outcome of actions. Our experiments show that BASS outperforms state-of-the-art models in AI-AI and human-AI collaboration.
+          </p>
+          
+          <!-- Video Grid -->
+          <div class="columns is-centered" style="margin-bottom: 2rem;">
+            <div class="column is-4">
+              <div class="box">
+                <h4 class="title is-6 has-text-centered">MLP</h4>
+                <video id="video-mlp" controls muted loop playsinline width="100%" style="max-height: 300px;">
+                  <source src="./static/modal_rollout_videos/HandOff_mlp.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
+            <div class="column is-4">
+              <div class="box">
+                <h4 class="title is-6 has-text-centered">DP</h4>
+                <video id="video-dp" controls muted loop playsinline width="100%" style="max-height: 300px;">
+                  <source src="./static/modal_rollout_videos/HandOff_dp.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
+            <div class="column is-4">
+              <div class="box">
+                <h4 class="title is-6 has-text-centered">BASS (Ours)</h4>
+                <video id="video-bass" controls muted loop playsinline width="100%" style="max-height: 300px;">
+                  <source src="./static/modal_rollout_videos/HandOff_bass.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Map Selector -->
+          <div class="has-text-centered" style="margin-bottom: 2rem;">
+            <div class="buttons is-centered" id="map-selector">
+              <button class="button is-primary is-small is-rounded map-btn" data-map="HandOff" title="Hand Off">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+              <button class="button is-light is-small is-rounded map-btn" data-map="SequentialRotation" title="Sequential Rotation">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Control Buttons -->
+          <div class="has-text-centered">
+            <div class="buttons is-centered">
+              <button id="play-all-btn" class="button is-success">
+                <span class="icon">
+                  <i class="fas fa-play"></i>
+                </span>
+                <span>Play All</span>
+              </button>
+              <button id="pause-all-btn" class="button is-warning">
+                <span class="icon">
+                  <i class="fas fa-pause"></i>
+                </span>
+                <span>Pause All</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-full">
           <h2 class="title is-3 has-text-centered">Dataset Visualization</h2>
           <p style="text-align: left; margin-bottom: 2rem;">
             Explore our human-human interaction dataset by selecting different tasks, maps, and episodes. The dataset contains collaborative episodes across five different map configurations, with each map presenting unique collaboration challenges.
           </p>
           
-          <div class="columns">
+          <div class="columns is-centered is-vcentered">
             <!-- Left side: Controls -->
             <div class="column is-4">
-              <div class="box">
+              <div class="box" style="height: fit-content;">
                 <h4 class="title is-5 has-text-centered">Select Video</h4>
                 
                 <div class="field">
@@ -357,8 +437,8 @@
             
             <!-- Right side: Video -->
             <div class="column is-8">
-              <div class="box">
-                <video id="dataset-video" controls muted loop playsinline width="89%" style="max-height: 600px;">
+              <div style="display: flex; justify-content: center; align-items: center;">
+                <video id="dataset-video" controls muted loop playsinline style="width: 70%; max-width: 600px; height: auto;">
                   <source src="./static/videos/by_map_h264/movingout_task1_CornerDecision_0.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
