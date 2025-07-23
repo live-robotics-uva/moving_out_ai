@@ -204,54 +204,79 @@ $(document).ready(function() {
         console.log('Updating videos for map:', videoMaps[mapIndex].displayName);
         const currentMap = videoMaps[mapIndex];
         
+        // Update status
+        $('#video-status').text(`Loading ${currentMap.displayName} videos...`);
+        
         // Update video sources
         Object.keys(videoElements).forEach(method => {
             const video = videoElements[method];
             const source = video.querySelector('source');
             source.src = currentMap.videos[method];
+            
+            // Ensure proper attributes for GitHub Pages
+            video.muted = true;
+            video.preload = 'metadata';
+            video.playsInline = true;
+            
             video.load();
         });
-        
-        // Update UI
-        $('#current-map-description').text(`Currently viewing: ${currentMap.displayName}`);
         
         // Update button states
         $('.map-btn').removeClass('is-primary').addClass('is-light');
         $(`.map-btn[data-map="${currentMap.name}"]`).removeClass('is-light').addClass('is-primary');
+        
+        // Update status when videos are ready
+        setTimeout(() => {
+            $('#video-status').text(`${currentMap.displayName} videos ready - Click "Play All" to start`);
+        }, 1000);
     }
     
     // Function to play all videos synchronously
     function playAllVideos() {
         console.log('Playing all videos synchronously');
+        $('#video-status').text('Starting videos...');
         
         // Reset all videos to start
         Object.values(videoElements).forEach(video => {
             video.currentTime = 0;
+            // Ensure videos are muted for autoplay
+            video.muted = true;
         });
         
-        // Play all videos
+        // Play all videos with better error handling
         const playPromises = Object.values(videoElements).map(video => {
-            return video.play().catch(e => console.log('Play failed:', e));
+            return video.play().catch(e => {
+                console.error('Play failed for video:', video.id, e);
+                $('#video-status').text('Some videos failed to play. Try clicking play on individual videos first.');
+                return null;
+            });
         });
         
         // Wait for all to start playing
         Promise.all(playPromises).then(() => {
             console.log('All videos started playing');
+            const currentMap = videoMaps[currentMapIndex];
+            $('#video-status').text(`Playing ${currentMap.displayName} comparison...`);
             
             // Monitor for longest video completion
             if (autoCycleEnabled) {
                 monitorVideoCompletion();
             }
+        }).catch(e => {
+            console.error('Failed to start some videos:', e);
+            $('#video-status').text('Failed to start videos. Please try again or disable auto-cycle.');
         });
     }
     
     // Function to pause all videos
     function pauseAllVideos() {
         console.log('Pausing all videos');
+        $('#video-status').text('Videos paused');
         Object.values(videoElements).forEach(video => {
             video.pause();
         });
         clearTimeout(videoSyncTimer);
+        clearTimeout(autoCycleTimer);
     }
     
     // Function to monitor video completion and auto-cycle
@@ -287,10 +312,11 @@ $(document).ready(function() {
             
             if (remainingTime <= 100) { // Almost finished
                 // Auto cycle to next map
+                $('#video-status').text('Switching to next scenario...');
                 autoCycleTimer = setTimeout(() => {
                     currentMapIndex = (currentMapIndex + 1) % videoMaps.length;
                     updateMapVideos(currentMapIndex);
-                    setTimeout(playAllVideos, 500); // Small delay to let videos load
+                    setTimeout(playAllVideos, 1000); // Small delay to let videos load
                 }, 1000);
             } else {
                 // Check again in a bit
@@ -344,14 +370,31 @@ $(document).ready(function() {
         // Initialize with first map and auto-cycle state
         updateMapVideos(0);
         
-        // Set initial auto-cycle button state
+        // Set initial auto-cycle button state (but don't auto-start)
         $('#auto-cycle-btn').removeClass('is-info').addClass('is-success');
         $('#auto-cycle-btn').find('span:last-child').text('Auto Cycle ON');
         
-        // Auto-start playing after a short delay to ensure videos are loaded
+        // Add a notice for users to click play
+        console.log('Videos loaded. Click "Play All" to start.');
+        
+        // Optional: Auto-start only if user has interacted with the page
+        let userHasInteracted = false;
+        $(document).one('click touchstart keydown', function() {
+            userHasInteracted = true;
+            console.log('User interaction detected, enabling auto-play');
+        });
+        
+        // Check for user interaction and auto-start after delay
         setTimeout(() => {
-            playAllVideos();
-        }, 1500);
+            if (userHasInteracted) {
+                console.log('Auto-starting videos after user interaction');
+                $('#video-status').text('Auto-starting videos...');
+                setTimeout(playAllVideos, 500);
+            } else {
+                console.log('No user interaction detected, waiting for manual play');
+                $('#video-status').text('Ready! Click "Play All" to start the video comparison');
+            }
+        }, 2000);
         
     }, 1000);
 
