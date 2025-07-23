@@ -164,6 +164,8 @@ $(document).ready(function() {
     // Method Comparison Videos Functionality
     // ===============================================
     
+    console.log('=== INITIALIZING METHOD COMPARISON VIDEOS ===');
+    
     // Video map configuration - easy to extend with new videos
     const videoMaps = [
         {
@@ -193,11 +195,18 @@ $(document).ready(function() {
     let videoSyncTimer = null;
     
     // Get video elements
+    console.log('Getting video elements...');
     const videoElements = {
         mlp: document.getElementById('video-mlp'),
         dp: document.getElementById('video-dp'),
         bass: document.getElementById('video-bass')
     };
+    
+    console.log('Video elements found:', {
+        mlp: !!videoElements.mlp,
+        dp: !!videoElements.dp,
+        bass: !!videoElements.bass
+    });
     
     // Function to update videos for current map
     function updateMapVideos(mapIndex) {
@@ -327,9 +336,37 @@ $(document).ready(function() {
         checkCompletion();
     }
     
-    // Event listeners for comparison videos
-    setTimeout(function() {
-        console.log('Setting up method comparison video controls');
+    // Function to wait for elements and initialize
+    function initializeMethodComparisonVideos() {
+        console.log('=== ATTEMPTING TO INITIALIZE METHOD COMPARISON ===');
+        
+        // Check if all required elements exist
+        const mlpVideo = document.getElementById('video-mlp');
+        const dpVideo = document.getElementById('video-dp');
+        const bassVideo = document.getElementById('video-bass');
+        const playBtn = document.getElementById('play-all-btn');
+        const pauseBtn = document.getElementById('pause-all-btn');
+        
+        console.log('Element check:', {
+            mlp: !!mlpVideo,
+            dp: !!dpVideo,
+            bass: !!bassVideo,
+            playBtn: !!playBtn,
+            pauseBtn: !!pauseBtn
+        });
+        
+        if (!mlpVideo || !dpVideo || !bassVideo || !playBtn || !pauseBtn) {
+            console.log('Some elements missing, retrying in 1 second...');
+            setTimeout(initializeMethodComparisonVideos, 1000);
+            return;
+        }
+        
+        console.log('=== ALL ELEMENTS FOUND, SETTING UP CONTROLS ===');
+        
+        // Update video elements object with actual elements
+        videoElements.mlp = mlpVideo;
+        videoElements.dp = dpVideo;
+        videoElements.bass = bassVideo;
         
         // Map selector buttons
         $('.map-btn').on('click', function() {
@@ -349,8 +386,14 @@ $(document).ready(function() {
         });
         
         // Control buttons
-        $('#play-all-btn').on('click', playAllVideos);
-        $('#pause-all-btn').on('click', pauseAllVideos);
+        $('#play-all-btn').on('click', function() {
+            console.log('=== PLAY ALL BUTTON CLICKED ===');
+            playAllVideos();
+        });
+        $('#pause-all-btn').on('click', function() {
+            console.log('=== PAUSE ALL BUTTON CLICKED ===');
+            pauseAllVideos();
+        });
         
         $('#auto-cycle-btn').on('click', function() {
             autoCycleEnabled = !autoCycleEnabled;
@@ -395,7 +438,9 @@ $(document).ready(function() {
                 $('#video-status').text('Ready! Click "Play All" to start the video comparison');
             }
         }, 2000);
-        
-    }, 1000);
+    }
+    
+    // Start trying to initialize method comparison videos
+    setTimeout(initializeMethodComparisonVideos, 1000);
 
 })
