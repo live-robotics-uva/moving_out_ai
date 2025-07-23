@@ -87,7 +87,7 @@
               <!-- <span class="author-block"><sup>2</sup>Google Research</span> -->
             </div>
 
-            <div class="column has-text-centered">
+            <div class="column has-text-centered" style="margin-bottom: 20px">
               <div class="publication-links">
                 <!-- PDF Link. -->
                 <span class="link-block">
@@ -162,6 +162,12 @@
               </div>
 
             </div>
+            <!-- Paper video. -->
+            <video poster="" id="toby" autoplay controls muted loop playsinline width="65%">
+              <source src="./static/videos/moving_out_maps.mp4" type="video/mp4">
+            </video>
+            <p style="text-align: center; font-style: italic;">Moving Out investigates physically-grounded human-AI collaboration with diverse constraints and interaction modes.</p>
+            <!--/ Paper video. -->
           </div>
         </div>
       </div>
@@ -182,19 +188,6 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-full">
-          <!-- Paper video. -->
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-full">
-              <h2 class="title is-3">Demonstration of Collaboration Modes</h2>
-              <p style="text-align: left;">Investigating human-AI collaboration in physically grounded tasks with diverse constraints and interaction modes in MovingOut.</p>
-              <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-                <source src="./static/videos/moving_out_maps.mp4" type="video/mp4">
-              </video>
-            </div>
-          </div>
-          <!--/ Paper video. -->
-
-
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
 
@@ -232,7 +225,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-full">
-          <h2 class="title is-3 has-text-centered">Environment</h2>
+          <h2 class="title is-3 has-text-centered">The <i>Moving Out</i> Environment</h2>
       <div>
         <img src="./static/images/intro.jpg" class="interpolation-image" alt="Interpolate start reference image." />
       </div>
@@ -241,20 +234,19 @@
           alt="Interpolate start reference image." />
       </div>
       <p style="text-align: left;">
-        The <i>Moving Out</i> environment where two agents collaborate to move objects to the blue goal region. The
-        environment includes movable objects with varying shapes and sizes. An agent can move a small item quickly. As
+        The <i>Moving Out</i> environment requires two agents to collaboratively move objects to the blue goal regions
+        Each map includes movable objects with varying shapes and sizes. An agent can move a small item quickly. As
         the object size increases, the agent needs the other's help to move the object.
-        <br>
-        Diverse collaboration behaviors in <i>Moving Out</i>, including (a) recognizing when help is needed, (b)
-        avoiding collisions, (c) passing objects, (d) moving items together, (e) aligning actions, and (f) organizing
-        objects in the goal region.
+        To succeed, the agents need to demonstrate abilities in engaging in diverse collaboration behaviors, including
+        (a) recognizing when help is needed, (b) avoiding collisions, (c) passing objects, (d) moving items together,
+        (e) aligning actions, and (f) organizing objects in the goal region.
       </p>
 
       <!-- Dataset Visualization Subsection -->
       <div style="margin-top: 3rem;">
         <h3 class="title is-4 has-text-left">Dataset Visualization</h3>
         <p style="text-align: left; margin-bottom: 2rem;">
-          Explore our human-human interaction dataset by selecting different tasks, maps, and episodes. The dataset contains collaborative episodes across twelve different map configurations, with each map presenting unique collaboration challenges.
+          We designed two tasks: (1) adapting to diverse human behaviors and (2) generalizing to unseen physical constraints in <i>Moving Out</i> and collected human-human interaction dataset to enable model training and evaluation. You can explore our human-human interaction dataset by selecting different tasks, maps, and episodes below. The dataset contains collaborative episodes across twelve different map configurations, with each map presenting unique collaboration challenges.
         </p>
         
         <div class="columns is-centered is-vcentered">
