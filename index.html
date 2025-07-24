@@ -148,7 +148,7 @@
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
-                    <span>Baselines</span>
+                    <span>Models</span>
                   </a>
                 </span>
                 <!-- Dataset Link. -->
@@ -192,19 +192,7 @@
           <div class="content has-text-justified">
 
             <p>
-              The ability to adapt actions to physical actions and constraints in an environment is
-              crucial for embodied agents (e.g., robots) to effectively collaborate with humans. Such
-              physically grounded human-AI collaboration must account for the increased complexity of the
-              continuous state-action space and constrained dynamics caused by physical constraints. In
-              this paper, we introduce Moving Out, a new human-AI collaboration benchmark that resembles a
-              wide range of collaboration modes that are affected by physical attributes and constraints
-              such as moving heavy items together and maintaining consistent actions to move a big item
-              around a corner. Using Moving Out, we designed two tasks and collected human-human
-              interaction data to evaluate models' abilities to adapt to diverse human behaviors and
-              unseen physical attributes. To address the challenges in physical environments, we propose a
-              novel method, BASS (Behavior Augmentation, Simulation, and Selection), to enhance the
-              diversity of agents and their understanding of the outcome of actions. Our experiments show
-              that BASS outperforms state-of-the-art models in AI-AI and human-AI collaboration.
+              The ability to adapt to physical actions and constraints in an environment is crucial for embodied agents (e.g., robots) to effectively collaborate with humans. Such physically grounded human-AI collaboration must account for the increased complexity of the continuous state-action space and constrained dynamics caused by physical constraints. In this paper, we introduce <i>Moving Out</i>, a new human-AI collaboration benchmark that resembles a wide range of collaboration modes affected by physical attributes and constraints, such as moving heavy items together and maintaining consistent actions to move a big item around a corner. Using Moving Out, we designed two tasks and collected human-human interaction data to evaluate models' abilities to adapt to diverse human behaviors and unseen physical attributes. To address the challenges in physical environments, we propose a novel method, BASS (Behavior Augmentation, Simulation, and Selection), to enhance the diversity of agents and their understanding of the outcome of actions. Our experiments show that BASS outperforms state-of-the-art models in AI-AI and human-AI collaboration.
             </p>
 
           </div>
@@ -346,6 +334,37 @@
       <div class="columns is-centered has-text-centered">
         <div class="column is-full">
           <h2 class="title is-3 has-text-centered">BASS: Behavior Augmentation, Simulation, and Selection</h2>
+          
+          <div style="margin-bottom: 3rem;">
+            <p style="text-align: left; margin-bottom: 1rem; font-size: 1.0rem;">
+              Our method, BASS (Behavior Augmentation, Simulation, and Selection), consists of two main components designed to address the challenges of human behavioral diversity and physical constraints.
+            </p>
+            
+            <h3 class="title is-5" style="text-align: left; margin-bottom: 1.5rem; color: #363636;">Method Overview</h3>
+            
+            <div style="margin-bottom: 1rem;">
+              <p style="text-align: left; margin-bottom: 0.5rem; font-size: 1rem; line-height: 1.6;">
+                <strong>The first part is behavior augmentation.</strong> It enriches the training data through two techniques, allowing the model to better adapt to diverse human behaviors:
+              </p>
+              
+              <div style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <p style="text-align: left; margin-bottom: 0.5rem; font-size: 1rem; line-height: 1.6;">
+                  <strong>• Perturbing the Partner's Pose:</strong> We generate new states by adding random noise to the partner's pose data. This improves the model's robustness to subtle variations in the partner's movements.
+                </p>
+                
+                <p style="text-align: left; margin-bottom: 0.5rem; font-size: 1rem; line-height: 1.6;">
+                  <strong>• Recombination of Sub-Trajectories:</strong> We create new and temporally consistent interaction sequences by identifying and swapping segments of a partner's behavior between different recorded trajectories.
+                </p>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 2rem;">
+              <p style="text-align: left; margin-bottom: 1rem; font-size: 1rem; line-height: 1.6;">
+                <strong>The second part is simulation and selection.</strong> We train a dynamics model to predict the state that results from an action. During inference, our model generates multiple candidate actions and uses this dynamics model to simulate their respective future outcomes. It then selects the optimal action based on an evaluation function (for example, the distance of an object to its goal). This allows our model to anticipate the consequences of its actions and make the best choice, even without access to a physical simulator.
+              </p>
+            </div>
+          </div>
+          
           <div>
             <img src="./static/images/model.jpg" class="interpolation-image" alt="Interpolate start reference image." />
           </div>
@@ -415,6 +434,16 @@
                   <i class="fas fa-circle"></i>
                 </span>
               </button>
+              <button class="button is-light is-small is-rounded map-btn" data-map="C1003" title="Case 1003">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+              <button class="button is-light is-small is-rounded map-btn" data-map="C2001" title="Case 2001">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
             </div>
           </div>
           
@@ -428,6 +457,88 @@
                 <span>Play All</span>
               </button>
               <button id="pause-all-btn" class="button is-warning">
+                <span class="icon">
+                  <i class="fas fa-pause"></i>
+                </span>
+                <span>Pause All</span>
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">Human-AI Collaboration Videos</h2>
+          <p style="text-align: left; margin-bottom: 2rem;">
+            Here we demonstrate Human-AI collaboration where the <span style="color: #e74c3c; font-weight: bold;">red robot is controlled by a human</span> and the <span style="color: #3498db; font-weight: bold;">blue robot represents our AI agent</span>. The comparison shows how BASS enables better coordination and collaboration with human partners compared to the baseline DP method. Our failure case analysis shows that the baseline model (DP) often fails when adapting to human behaviors (like not assisting) or objects (like failing to grasp) that were not in the training data. In contrast, our method, BASS, reduces the occurrence rate of these primary failure types by about half, demonstrating superior adaptability.
+          </p>
+          
+          <!-- Video Grid -->
+          <div class="columns is-centered" style="margin-bottom: 2rem;">
+            <div class="column is-5">
+              <div class="box">
+                <h4 class="title is-6 has-text-centered">DP</h4>
+                <video id="human-ai-video-dp" controls muted loop playsinline preload="metadata" width="100%" style="max-height: 300px;">
+                  <source src="./static/human_ai_collaboration_videos/1002_dp.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
+            <div class="column is-5">
+              <div class="box">
+                <h4 class="title is-6 has-text-centered">BASS (Ours)</h4>
+                <video id="human-ai-video-bass" controls muted loop playsinline preload="metadata" width="100%" style="max-height: 300px;">
+                  <source src="./static/human_ai_collaboration_videos/1002_bass.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Map Selector -->
+          <div class="has-text-centered" style="margin-bottom: 2rem;">
+            <div class="buttons is-centered" id="human-ai-map-selector">
+              <button class="button is-primary is-small is-rounded human-ai-map-btn" data-map="C1002" title="Case 1002">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+              <button class="button is-light is-small is-rounded human-ai-map-btn" data-map="C2000" title="Case 2000">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+              <button class="button is-light is-small is-rounded human-ai-map-btn" data-map="C2006" title="Case 2006">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+              <button class="button is-light is-small is-rounded human-ai-map-btn" data-map="C2007" title="Case 2007">
+                <span class="icon is-small">
+                  <i class="fas fa-circle"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          
+          <!-- Control Buttons -->
+          <div class="has-text-centered">
+            <div class="buttons is-centered">
+              <button id="human-ai-play-all-btn" class="button is-success">
+                <span class="icon">
+                  <i class="fas fa-play"></i>
+                </span>
+                <span>Play All</span>
+              </button>
+              <button id="human-ai-pause-all-btn" class="button is-warning">
                 <span class="icon">
                   <i class="fas fa-pause"></i>
                 </span>
